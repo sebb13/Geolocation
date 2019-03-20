@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<translations>
+	<GEOLOCATION_HOME_TITLE><![CDATA[Géolocalisation]]></GEOLOCATION_HOME_TITLE>
+	<LOCATE_ME_BUTTON><![CDATA[Localisez-moi]]></LOCATE_ME_BUTTON>
+	<FORMAT_TOOLTIP><![CDATA[Format de sortie de l'API]]></FORMAT_TOOLTIP>
+	<LATITUDE_TOOLTIP><![CDATA[Latitude de votre position]]></LATITUDE_TOOLTIP>
+	<LONGITUDE_TOOLTIP><![CDATA[Longitude de votre position]]></LONGITUDE_TOOLTIP>
+	<RADIUS_TOOLTIP><![CDATA[Rayon autour de votre position sur la carte]]></RADIUS_TOOLTIP>
+</translations>
