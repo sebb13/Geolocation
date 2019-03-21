@@ -107,6 +107,11 @@ final class GeolocationMgr extends SimpleXmlMgr {
 		return $this->returnFormat($this->curlSend($sUrl));
 	}
 	
+	/*
+	 * Nous nous appuyons ici sur la version gratuite de l'API
+	 * www.iplocate.io
+	 * à vous de l'utiliser ou non, voir de changer d'API pour un système plus durable
+	 */
 	public function getPositionByIP($sIP) {
 		$sUrl = str_replace('{__IP__}', $sIP, $this->sLocateByIpUrl);
 		$aPosition = (array)json_decode(file_get_contents($sUrl));
