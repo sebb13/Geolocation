@@ -22,6 +22,7 @@ final class GeolocationMgr extends SimpleXmlMgr {
 	private $sAdresseGouvSearchApiUrl = 'https://api-adresse.data.gouv.fr/search/?q={__QUERY__}';
 	private $sAdresseGouvReverseApiUrl = 'https://api-adresse.data.gouv.fr/reverse/?lat={__LAT__}&lon={__LON__}';
 	private $sLatLonQuery = '&lat={__LAT__}&lon={__LON__}';
+	private $sLocateByIpUrl = 'https://www.iplocate.io/api/lookup/{__IP__}';
 	private $sConfInterface = '';
 	public $sOutputFormat = '';
 	public static $sModuleName = 'Geolocation';
@@ -104,6 +105,19 @@ final class GeolocationMgr extends SimpleXmlMgr {
 			$this->sAdresseGouvReverseApiUrl
 		);
 		return $this->returnFormat($this->curlSend($sUrl));
+	}
+	
+	public function getPositionByIP($sIP) {
+		$sUrl = str_replace('{__IP__}', $sIP, $this->sLocateByIpUrl);
+		$aPosition = (array)json_decode(file_get_contents($sUrl));
+		return $this->returnFormat(
+								array(
+									'GeoLon'		=> $aPosition['longitude'],
+									'GeoLat'		=> $aPosition['latitude'],
+									'PropPostCode'	=> $aPosition['postal_code'],
+									'PropCity'		=> $aPosition['city'],
+								)
+		);
 	}
 	
 	private function curlSend($sUrl, $bFormat=true) {

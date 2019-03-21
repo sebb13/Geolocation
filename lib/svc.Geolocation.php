@@ -113,6 +113,17 @@ final class Geolocation extends CoreCommon {
 		}
 	}
 	
+	public function getPositionByIP() {
+		$mResult = $this->oGeolocationMgr->getPositionByIP(
+											SessionCore::get('REMOTE_ADDR')
+										);
+		if($this->oGeolocationMgr->sOutputFormat === 'array') {
+			return $mResult;
+		} else {
+			die($mResult);
+		}
+	}
+	
 	public function getHomePage() {
 		return array(
 				'content' => $this->oTplMgr->buildSimpleCacheTpl(
