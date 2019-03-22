@@ -1,4 +1,10 @@
+var options = {
+	enableHighAccuracy: true,
+	timeout: 5000,
+	maximumAge: 0
+};
 function myPosition(position) {
+	console.log('setPosition start');
 	var promise = genericRequest({
 			app_token: getToken(), 
 			content: getCurrentPage(),
@@ -11,15 +17,23 @@ function myPosition(position) {
 	promise.success(function() {
 		if(console && console.log) {
 			console.log('setPosition ok');
-		};
+		}
+	});
+	promise.error(function() {
+		if(console && console.log) {
+			console.log('setPosition fail');
+		}
 	});
 }
+function error(err) {
+	if(console && console.log) {
+		console.log("ERREUR "+err.code+": "+err.message);
+	}
+}
+
 if(navigator.geolocation) {
-	navigator.geolocation.getCurrentPosition(myPosition);
-	$('meta[name=app_current_page]').change(function(){
-		navigator.geolocation.getCurrentPosition(myPosition);
-	});
+	navigator.geolocation.getCurrentPosition(myPosition, error, options);
 	$('div#ajaxFrame').on('click', '#locReload', function(){
-		navigator.geolocation.getCurrentPosition(myPosition);
+		navigator.geolocation.getCurrentPosition(myPosition, error, options);
 	});
 }
