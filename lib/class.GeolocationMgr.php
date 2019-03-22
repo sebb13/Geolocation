@@ -24,7 +24,7 @@ final class GeolocationMgr extends SimpleXmlMgr {
 	private $sLatLonQuery = '&lat={__LAT__}&lon={__LON__}';
 	private $sLocateByIpUrl = 'https://www.iplocate.io/api/lookup/{__IP__}';
 	private $sConfInterface = '';
-	public $iAccuracy = 0;
+	public $iAccuracy = 5000;
 	public $sOutputFormat = '';
 	public static $sModuleName = 'Geolocation';
 	
