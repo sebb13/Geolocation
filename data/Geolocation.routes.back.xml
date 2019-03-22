@@ -1,2 +1,2 @@
 <?xml version="1.0"?>
-<routes><geolocation_home><![CDATA[Geolocation::getHomePage]]></geolocation_home></routes>
+<routes><geolocation_home><![CDATA[Geolocation::getHomePage]]></geolocation_home><geolocation_test><![CDATA[Geolocation::getPosition]]></geolocation_test></routes>
