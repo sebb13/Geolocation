@@ -112,17 +112,16 @@ final class GeolocationMgr extends SimpleXmlMgr {
 	 * www.iplocate.io
 	 * à vous de l'utiliser ou non, voir de changer d'API pour un système plus durable
 	 */
-	public function getPositionByIP($sIP) {
+	public function getPositionByIP($sIP, $bInArray=false) {
 		$sUrl = str_replace('{__IP__}', $sIP, $this->sLocateByIpUrl);
 		$aPosition = (array)json_decode(file_get_contents($sUrl));
-		return $this->returnFormat(
-								array(
-									'GeoLon'		=> $aPosition['longitude'],
-									'GeoLat'		=> $aPosition['latitude'],
-									'PropPostCode'	=> $aPosition['postal_code'],
-									'PropCity'		=> $aPosition['city'],
-								)
-		);
+		$aReturn = array(
+						'GeoLon'		=> $aPosition['longitude'],
+						'GeoLat'		=> $aPosition['latitude'],
+						'PropPostCode'	=> $aPosition['postal_code'],
+						'PropCity'		=> $aPosition['city'],
+					);
+		return $bInArray ? $aReturn : $this->returnFormat($aReturn);
 	}
 	
 	private function curlSend($sUrl, $bFormat=true) {

@@ -49,6 +49,14 @@ final class Geolocation extends CoreCommon {
 	}
 	
 	public function getPosition() {
+		if(UserRequest::getParams('latitude') === false || UserRequest::getParams('longitude') === false) {
+			$mResult = $this->oGeolocationMgr->getPositionByIP(
+											SessionCore::get('REMOTE_ADDR'), 
+											true
+										);
+			UserRequest::setParams('latitude', $mResult['GeoLat']);
+			UserRequest::setParams('longitude', $mResult['GeoLon']);
+		}
 		return array(
 			'latitude'	=> UserRequest::getParams('latitude'),
 			'longitude'	=> UserRequest::getParams('longitude'),
