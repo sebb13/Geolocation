@@ -24,6 +24,7 @@ final class GeolocationMgr extends SimpleXmlMgr {
 	private $sLatLonQuery = '&lat={__LAT__}&lon={__LON__}';
 	private $sLocateByIpUrl = 'https://www.iplocate.io/api/lookup/{__IP__}';
 	private $sConfInterface = '';
+	public $iAccuracy = 0;
 	public $sOutputFormat = '';
 	public static $sModuleName = 'Geolocation';
 	
@@ -156,13 +157,14 @@ final class GeolocationMgr extends SimpleXmlMgr {
 				'PropContext'	=> current((array)$oFeatures->properties->context),
 				'PropScore'		=> current((array)$oFeatures->properties->score),
 				'PropImportance'=> current((array)$oFeatures->properties->importance),
-				'PropId'		=> current((array)$oFeatures->properties->id)
+				'PropId'		=> current((array)$oFeatures->properties->id),
+				'PropAccuracy'	=> $this->iAccuracy
 			);
 		}
 		return $aOut;
 	}
 	
-	private function returnFormat(array $aResult) {
+	private function returnFormat(array $aResult) { //factory
 		switch($this->sOutputFormat) {
 			case 'json':
 				return json_encode($aResult);

@@ -4,7 +4,6 @@ var options = {
 	maximumAge: 0
 };
 function myPosition(position) {
-	console.log('setPosition start');
 	var promise = genericRequest({
 			app_token: getToken(), 
 			content: getCurrentPage(),
@@ -12,7 +11,8 @@ function myPosition(position) {
 			latitude: position.coords.latitude,
 			longitude: position.coords.longitude,
 			altitude: position.coords.altitude,
-			speed: position.coords.speed
+			speed: position.coords.speed,
+			accuracy: position.coords.accuracy
 		});
 	promise.success(function() {
 		if(console && console.log) {

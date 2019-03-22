@@ -25,6 +25,7 @@ final class Geolocation extends CoreCommon {
 								'longitude',
 								'altitude',
 								'speed',
+								'accuracy',
 								'postcode',
 								'city',
 								'address',
@@ -43,13 +44,13 @@ final class Geolocation extends CoreCommon {
 	}
 	
 	public function setPosition() {
-		return 
-			UserRequest::getParams('latitude') !== false && 
-			UserRequest::getParams('longitude') !== false;
+		return $this->getPosition();
 	}
 	
 	public function getPosition() {
-		if(UserRequest::getParams('latitude') === false || UserRequest::getParams('longitude') === false) {
+		if(UserRequest::getParams('accuracy') !== false) {
+			$this->oGeolocationMgr->iAccuracy = UserRequest::getParams('accuracy');
+		} elseif(UserRequest::getParams('latitude') === false || UserRequest::getParams('longitude') === false) {
 			$mResult = $this->oGeolocationMgr->getPositionByIP(
 											SessionCore::get('REMOTE_ADDR'), 
 											true
@@ -57,12 +58,13 @@ final class Geolocation extends CoreCommon {
 			UserRequest::setParams('latitude', $mResult['GeoLat']);
 			UserRequest::setParams('longitude', $mResult['GeoLon']);
 		}
-		return array(
+		return json_encode(array(
 			'latitude'	=> UserRequest::getParams('latitude'),
 			'longitude'	=> UserRequest::getParams('longitude'),
 			'altitude'	=> UserRequest::getParams('altitude'),
-			'speed'		=> UserRequest::getParams('speed')
-		);
+			'speed'		=> UserRequest::getParams('speed'),
+			'accuracy'	=> $this->oGeolocationMgr->iAccuracy
+		));
 	}
 	
 	public function getCitiesFromPostCode() {
