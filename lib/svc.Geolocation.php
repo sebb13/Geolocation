@@ -52,7 +52,7 @@ final class Geolocation extends CoreCommon {
 			$this->oGeolocationMgr->iAccuracy = UserRequest::getParams('accuracy');
 		} elseif(UserRequest::getParams('latitude') === false || UserRequest::getParams('longitude') === false) {
 			$mResult = $this->oGeolocationMgr->getPositionByIP(
-											SessionCore::get('REMOTE_ADDR'), 
+											UserRequest::getEnv('REMOTE_ADDR'), 
 											true
 										);
 			UserRequest::setParams('latitude', $mResult['GeoLat']);
@@ -125,7 +125,7 @@ final class Geolocation extends CoreCommon {
 	
 	public function getPositionByIP() {
 		$mResult = $this->oGeolocationMgr->getPositionByIP(
-											SessionCore::get('REMOTE_ADDR')
+											UserRequest::getEnv('REMOTE_ADDR')
 										);
 		if($this->oGeolocationMgr->sOutputFormat === 'array') {
 			return $mResult;
